@@ -9,7 +9,7 @@ public class UIManager : MonoBehaviour
     {
         Debug.Log("Play Button Çalýþtý!");
 
-        SceneManager.LoadScene("MainScene");
+        SceneManager.LoadScene("LevelSelection");
     }
         public void ObtionButtons()
     {
