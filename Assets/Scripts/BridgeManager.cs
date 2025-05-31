@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;  
+using TMPro;
 
 public class BridgeManager : MonoBehaviour
 {
@@ -14,24 +14,27 @@ public class BridgeManager : MonoBehaviour
     [Header("Questions")]
     public List<QuestionData> questions = new List<QuestionData>();
 
+    [Header("Bridge Control")]
+    public GameObject bridgeBlocker; 
+
     private int currentQuestionIndex = 0;
 
     void Start()
     {
-      
-            questionUI.SetActive(true);
+        questionUI.SetActive(true);
 
-          
-            foreach (GameObject stone in bridgeStones)
-            {
-                stone.SetActive(false);
-            }
+        foreach (GameObject stone in bridgeStones)
+        {
+            stone.SetActive(false);
+        }
 
-            ShowNextQuestion();
-            Debug.Log("BridgeStones Start called");
-          
-        
-       
+        if (bridgeBlocker != null)
+        {
+            bridgeBlocker.SetActive(true);
+        }
+
+        ShowNextQuestion();
+        Debug.Log("BridgeStones Start called");
     }
 
     public void ShowNextQuestion()
@@ -48,6 +51,13 @@ public class BridgeManager : MonoBehaviour
             questionText.text = "The bridge is completed!";
             feedbackText.text = "You can cross over!";
             questionUI.SetActive(false);
+
+           
+            if (bridgeBlocker != null)
+            {
+                bridgeBlocker.SetActive(false);
+                Debug.Log("BridgeBlocker disabled. You can cross!");
+            }
         }
     }
 
@@ -71,6 +81,5 @@ public class BridgeManager : MonoBehaviour
             feedbackText.text = "Wrong! Try again.";
         }
     }
-
 }
 
