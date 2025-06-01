@@ -2,6 +2,6 @@
 public class QuestionData
 {
     public string question;
-    public string correctAnswer;  
+    public float correctAnswer;  
 }
 

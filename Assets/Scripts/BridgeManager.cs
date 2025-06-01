@@ -15,7 +15,7 @@ public class BridgeManager : MonoBehaviour
     public List<QuestionData> questions = new List<QuestionData>();
 
     [Header("Bridge Control")]
-    public GameObject bridgeBlocker; 
+    public GameObject bridgeBlocker;
 
     private int currentQuestionIndex = 0;
 
@@ -52,7 +52,7 @@ public class BridgeManager : MonoBehaviour
             feedbackText.text = "You can cross over!";
             questionUI.SetActive(false);
 
-           
+
             if (bridgeBlocker != null)
             {
                 bridgeBlocker.SetActive(false);
@@ -60,26 +60,34 @@ public class BridgeManager : MonoBehaviour
             }
         }
     }
-
     public void SubmitAnswer()
     {
         if (currentQuestionIndex >= questions.Count) return;
 
         QuestionData currentQuestion = questions[currentQuestionIndex];
-        string playerAnswer = answerInput.text.Trim();
+        float playerAnswerFloat;
 
-        if (playerAnswer.Equals(currentQuestion.correctAnswer, System.StringComparison.OrdinalIgnoreCase))
+        if (float.TryParse(answerInput.text.Trim(), out playerAnswerFloat))
         {
-            feedbackText.text = "TRUE!";
-            Debug.Log($"Taþ açýlýyor: index {currentQuestionIndex}");
-            bridgeStones[currentQuestionIndex].SetActive(true);
-            currentQuestionIndex++;
-            Invoke(nameof(ShowNextQuestion), 1.2f);
+            if (Mathf.Approximately(playerAnswerFloat, currentQuestion.correctAnswer))
+            {
+                feedbackText.text = "TRUE!";
+                Debug.Log($"Taþ açýlýyor: index {currentQuestionIndex}");
+                bridgeStones[currentQuestionIndex].SetActive(true);
+                currentQuestionIndex++;
+                Invoke(nameof(ShowNextQuestion), 1.2f);
+            }
+            else
+            {
+                feedbackText.text = "Wrong! Try again.";
+            }
         }
         else
         {
-            feedbackText.text = "Wrong! Try again.";
+            feedbackText.text = "Please enter a valid number.";
         }
     }
+
+
 }
 

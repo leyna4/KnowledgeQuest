@@ -41,6 +41,11 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public Animator animator; // Player'ýn Animator componentini baðla
+    void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("Biri trigger'a çarptý: " + other.name);
+    }
+
 
 }
 
